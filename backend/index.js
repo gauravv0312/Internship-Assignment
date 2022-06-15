@@ -1,51 +1,13 @@
-const express = require("express");
-const cors = require('cors');
-const app =express();
-app.use(cors({
-    origin: '*'
-}));
+const app = require('./app');
+const connectWithDb = require("./config/database");
+require("dotenv").config();
 
 const PORT =4000 || process.env.PORT;
 
-app.get("/",(req,res) =>{
-    res.send("<h1>Hello Gaaurav</h1>");
-});
+connectWithDb();
 
-app.get("/user",(req,res) =>{
-    const user =[{
-        name: "Gaurav",
-        email:"Gaurav@gmail.com",
-        phone: "9999999999",
-    },
-    {
-        name: "Gautam",
-        email:"Gautam@gmail.com",
-        phone: "8888888888",
-    },
-    {
-        name: "Anamika",
-        email:"Anamika@gmail.com",
-        phone: "55555555555",
-    },
 
-    {
-        name: "Kriti",
-        email:"Kriti@gmail.com",
-        phone: "7777777777",
-    },
 
-    {
-        name: "Namita",
-        email:"Namita@gmail.com",
-        phone: "66666666666",
-    },
-   
-   
-]
-    // res.send("<h1>Hello Gaaurav</h1>")
-    res.status(200).json(user);
-});
-
-app.listen(PORT,()=>{
+app.listen(process.env.PORT || 4000,()=>{
     console.log(`Sever is running on ${PORT}`);
 });
