@@ -3,8 +3,10 @@ import { Table, Button } from "react-bootstrap";
 import axios from "axios";
 function User() {
   const [data, setData] = useState([]);
+
   const getData = async () => {
-    const { data } = await axios.get(`http://localhost:4000/user`);
+    const { data } = await axios.get(`http://localhost:4000/api/v1/user`);
+   
     setData(data);
   };
 
@@ -25,17 +27,21 @@ function User() {
           </tr>
         </thead>
         <tbody>
-          {data.map((user) => (
-            <tr>
-              <td>{user.name}</td>
-              <td>{user.email}</td>
-              <td>{user.phone}</td>
+          {data.user?.map((e) => (
+            <tr key={e._id}>
+              <td>{e.fullname}</td>
+              <td>{e.email}</td>
+              <td>{e.phone}</td>
               <td>
                 <Button
                   onClick={() => {
-                    var newData = data.filter(function (el) {
-                      return el.name !== user.name;
+                  
+                 
+                    var newData = data.user.filter(function (el) {
+                      console.log(el._id);
+                      return el._id !== e._id;
                     });
+                    console.log(newData);
                     setData(newData);
                   }}
                   variant="danger"
